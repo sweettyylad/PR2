@@ -22,6 +22,7 @@ public class Consumer implements Runnable {
         while (true) {
             try {
                 String check = consume();
+                System.out.println(check);
 //                System.out.println("Принятие сгенерированного: " + check);
                 if (hash(check).equals(this.content)) {
                     System.out.println("Done! Your Pass - " + check);

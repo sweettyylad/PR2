@@ -11,8 +11,8 @@ public class Hash {
     String password;
     char[] symbols;
     LinkedList<String> sharedQueue = new LinkedList<>();
-    int size = 100;
-    Thread[] prodThread;
+    int size = 10000;
+    Thread prodThread;
     Thread[] consThread;
 
 
@@ -56,15 +56,13 @@ public class Hash {
         this.init();
         streamCount = Math.max(1, streamCount);
 
-        this.prodThread = new Thread[streamCount];
         this.consThread = new Thread[streamCount];
         for(int i = 0; i < streamCount; i++){
-            this.prodThread[i] = new Thread(new Producer(this.sharedQueue, this.size, this.symbols), "Producer");
-            this.consThread[i] = new Thread(new Consumer(sharedQueue, this.content), "Consumer");
+            this.consThread[i] = new Thread(new Consumer(this.sharedQueue, this.content), "Consumer");
         }
-        for(Thread pt : prodThread){
-            pt.start();
-        }
+        this.prodThread = new Thread(new Producer(this.sharedQueue, this.size, this.symbols), "Producer");
+
+        prodThread.start();
         for(Thread ct : consThread){
             ct.start();
         }
