@@ -2,14 +2,11 @@ package com.sweettyy;
 
 
 import com.sweettyy.myclasses.Hash;
-import com.sweettyy.myclasses.Producer;
-import com.sweettyy.myclasses.Consumer;
-
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.security.NoSuchAlgorithmException;
-import java.util.LinkedList;
+import java.util.Scanner;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -17,6 +14,7 @@ import org.json.JSONObject;
 
 public class main {
 
+    public static long time;
     public static boolean find;
     public static void main(String[] args) throws JSONException, NoSuchAlgorithmException, InterruptedException {
         main.find = false;
@@ -47,9 +45,11 @@ public class main {
             mJsonObject.getString("hash");
             hashs[i].setContent(mJsonObject.getString("hash"));
         }
+        Scanner in = new Scanner(System.in);
+        System.out.print("Введите количество потоков - ");
+        int scount = in.nextInt();
 
-        hashs[0].setContent("57acd9204d45c9c71dd7f1625a252b4f6ef962c882d8ad6bb6d872660d02200e");
-        hashs[0].passwordSelection(5);
+        hashs[1].passwordSelection(scount);
 
     }
 }

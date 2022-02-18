@@ -1,7 +1,7 @@
 package com.sweettyy.myclasses;
 
-import java.nio.charset.StandardCharsets;
-import java.security.MessageDigest;
+import com.sweettyy.main;
+
 import java.security.NoSuchAlgorithmException;
 import java.util.LinkedList;
 
@@ -11,7 +11,7 @@ public class Hash {
     String password;
     char[] symbols;
     LinkedList<String> sharedQueue = new LinkedList<>();
-    int size = 10;
+    int size = 100;
     Thread[] prodThread;
     Thread[] consThread;
 
@@ -62,14 +62,12 @@ public class Hash {
             this.prodThread[i] = new Thread(new Producer(this.sharedQueue, this.size, this.symbols), "Producer");
             this.consThread[i] = new Thread(new Consumer(sharedQueue, this.content), "Consumer");
         }
-        long time = System.currentTimeMillis();
         for(Thread pt : prodThread){
             pt.start();
         }
         for(Thread ct : consThread){
             ct.start();
         }
-        System.out.println("Программа выполнялась приблизительно " + (System.currentTimeMillis() - time) + "ms");
 
     }
 }

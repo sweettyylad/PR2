@@ -1,10 +1,6 @@
 package com.sweettyy.myclasses;
 
 import com.sweettyy.main;
-
-import java.nio.charset.StandardCharsets;
-import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
 import java.util.Queue;
 
 // implements Runnable чтобы запускать в отдельном потоке
@@ -26,7 +22,8 @@ public class Producer implements Runnable {
 
     @Override
     public void run() {
-        // Цикл бесконечен
+
+        main.time = System.currentTimeMillis();
         StringBuilder selected = new StringBuilder();
         char[] trial = new char[MAX_KEY_SIZE];
         for (int z = 0; z < MAX_KEY_SIZE; z++) {
@@ -39,7 +36,9 @@ public class Producer implements Runnable {
                 selected.append(trial[z]);
             }
             try {
-                if(main.find){return;}
+                if(main.find){
+                    return;
+                }
                 produce(selected);
             } catch (InterruptedException e) {
                 e.printStackTrace();

@@ -1,7 +1,6 @@
 package com.sweettyy.myclasses;
 
 import com.sweettyy.main;
-
 import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
@@ -27,9 +26,13 @@ public class Consumer implements Runnable {
                 if (hash(check).equals(this.content)) {
                     System.out.println("Done! Your Pass - " + check);
                     main.find = true;
+                    System.out.println("Программа выполнялась приблизительно " + ((System.currentTimeMillis() - main.time)/1000) + "s");
                     this.answer = check;
                 }
                 if(main.find){
+                    synchronized (sharedQueue){
+                        sharedQueue.notifyAll();
+                    }
                     return;
                 }
             } catch (InterruptedException ex) {
